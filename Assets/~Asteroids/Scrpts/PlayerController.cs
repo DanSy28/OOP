@@ -21,7 +21,20 @@ namespace Asteroids
                 movement.Accelerate(transform.up);
             }
             // Accelerate player
-            movement.Rotate(inputH);
+            //movement.Rotate(inputH);
+            if (inputH > 0)
+            {
+                // If right arrow is pressed
+                // Rotate right
+                movement.RotationRight();
+            }
+            if (inputH < 0)
+            { 
+                // If left arrow is pressed
+                // Rotate left
+                movement.RotationLeft();
+            }
         }
+
     }
 }
