@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+namespace Asteroids
+{
+    public class Bullet : MonoBehaviour
+    {
+        void OnTriggerEnter2D(Collider2D col)
+        {
+            if(col.name.Contains("Asteroid"))
+            {
+                GameManager.Instance.AddScore(1);
+                Destroy(col.gameObject);
+                Destroy(gameObject);
+            }
+        }
+       
+    }
 }

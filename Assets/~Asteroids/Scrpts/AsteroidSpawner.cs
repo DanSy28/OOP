@@ -8,6 +8,9 @@ namespace Asteroids
     {
         public GameObject[] prefabs;
         public float spawnRate = 1f;
+        public float minSpeed = 1f;
+        public float maxSpeed = 5f;
+        
 
         private float spawnTimer = 0f;
 
@@ -83,10 +86,20 @@ namespace Asteroids
                 {
                     postion.x = -halfWidth;
                 }
+
+                SpawnAtPosition(postion);
             }
         }
         public void SpawnAtPosition(Vector3 position)
         {
+            int randIndex = Random.Range(0, prefabs.Length);
+            GameObject asteroid = Instantiate(prefabs[randIndex], transform.position, transform.rotation);
+            asteroid.transform.position = position;
+
+            Rigidbody2D rigid = asteroid.GetComponent<Rigidbody2D>();
+            float randomSpeed = Random.Range(minSpeed, maxSpeed);
+            Vector2 randomDir = Random.onUnitSphere;
+            rigid.AddForce(randomDir * randomSpeed, ForceMode2D.Impulse);
 
         }
 

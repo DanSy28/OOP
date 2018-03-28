@@ -20,7 +20,7 @@ namespace Asteroids
         #region Custom Function
         void Shoot()
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 shoot.Fire(transform.up);
             }
@@ -45,14 +45,14 @@ namespace Asteroids
                 movement.RotationRight();
             }
             if (inputH < 0)
-            { 
+            {
                 // If left arrow is pressed
                 // Rotate left
                 movement.RotationLeft();
             }
-            #endregion
 
         }
 
+        #endregion
     }
 }
