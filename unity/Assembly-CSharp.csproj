@@ -58,8 +58,8 @@
      <Compile Include="Assets\~Breakout\Scripts\Ball.cs" />
      <Compile Include="Assets\~Breakout\Scripts\KeepWithinScreeen.cs" />
      <Compile Include="Assets\~Breakout\Scripts\Paddle.cs" />
-     <Compile Include="Assets\~Minesweeper2D\Scripts\Grid.cs" />
-     <Compile Include="Assets\~Minesweeper2D\Scripts\Tile.cs" />
+     <Compile Include="Assets\~Minesweeper\Scripts\Grid.cs" />
+     <Compile Include="Assets\~Minesweeper\Scripts\Tile.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

@@ -2,44 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Minesweeper2D
+namespace Minesweeper
 {
     [RequireComponent(typeof(SpriteRenderer))]
     public class Tile : MonoBehaviour
     {
-        public int x = 0;
-        public int y = 0;
+        #region Variables
+        public int x, y;
         public bool isMine = false;
         public bool isRevealed = false;
         [Header("References")]
         public Sprite[] emptySprites;
         public Sprite[] mineSprites;
-
         private SpriteRenderer rend;
-
-        void Awake ()
+        #endregion
+        void Awake()
         {
             rend = GetComponent<SpriteRenderer>();
         }
-        void Start ()
+        void Start()
         {
             isMine = Random.value < .05f;
         }
-
-        public void Reveal(int adjacentMines, int MineState = 0)
+        public void Reveal(int adjacentMines, int mineState = 0)
         {
             isRevealed = true;
-            if (isMine)
+            if(isMine)
             {
-                rend.sprite = mineSprites[MineState];
+                rend.sprite = mineSprites[mineState];
             }
             else
             {
                 rend.sprite = emptySprites[adjacentMines];
             }
         }
-
     }
-
 
 }
