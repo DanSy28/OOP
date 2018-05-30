@@ -86,12 +86,90 @@ namespace Minesweeper
             }
 
         }
+        void FFuncover(int x, int y, bool[,] visited)
+        {
+            if(x >= 0 && y >= 0 && x < width && y < height)
+            {
+                if (visited[x, y])
+                    return;
+                Tile tile = tiles[x, y];
+                int adjacentMines = GetAdjcentMineCount(tile);
+                tile.Reveal(adjcentMine);
+                if(adjacentMines == 0)
+                {
+                    visited[x, y] = true;
+                    FFuncover(x - 1, y, visited);
+                    FFuncover(x + 1, y, visited);
+                    FFuncover(x, y - 1, visited);
+                    FFuncover(x, y + 1, visited);
+                }
+            }
+        }
+        void UncoverMines(int mineState = 0)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    Tile tile = tiles[x, y];
+                    if(tile.isMine)
+                    {
+                        int adjacentMines = GetAdjcentMineCount(tile);
+                        tile.Reveal(adjcentMine, mineState);
+                    }
+                }
+            }
+        }
+        bool NoMoreEmptyTiles()
+        {
+            int emptyTileCount = 0;
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    Tile tile = tiles[x, y];
+                    if(!tile.isRevealed && !tile.isMine)
+                    {
+                        emptyTileCount += 1;
+                    }
+                }
+            }
+            return emptyTileCount == 0;
+        }
+        void SelectTile(Tile selected)
+        {
+            int adjacentMines = GetAdjcentMineCount(selected);
+            selected.Reveal(adjacentMines);
+            if(selected.isMine)
+            {
+                UncoverMines();
+            }
+            else if(adjacentMines == 0)
+            {
+                int x = selected.x;
+                int y = selected.y;
+                FFuncover(x, y, new bool[width, height]);
+            }
+            if(NoMoreEmptyTiles())
+            {
+                UncoverMines(1);
+            }
+        }
         void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            if(Input.GetMouseButtonDown(0))
             {
-                selectTile();
-            }
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+                if(hit.collider != null)
+                {
+                    Tile hitTile = hit.collider.GetComponent<Tile>();
+                    if(hitTile != null)
+                    {
+                        SelectTile(hitTile);
+                    }
+                }
+            }                   
         }
     }
 }
